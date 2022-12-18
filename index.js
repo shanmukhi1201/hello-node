@@ -1,46 +1,17 @@
-// const hello = 'Hello Node.js!'
-// const returnHello = () => {
-//   console.log(hello)
-// }
-// returnHello()
-// const fs = require("fs");
-// fs.writeFile(
-//   "sample.txt",
-//   "Hello World. Welcome to Node.js File System module.",
-//   (err) => {
-//     if (err) throw err;
-//     else {
-//       console.log("File created!");
-//     }
-//   }
-// );
-// fs.readFile("sample.txt", (err, data) => {
-//   if (err) throw err;
-//   console.log(data.toString());
-// });
-
-// fs.appendFile("sample.txt", " This is my updated content", (err) => {
-//   if (err) throw err;
-//   console.log("File updated!");
-// });
-
-// fs.rename("sample.txt", "test.txt", (err) => {
-//   if (err) throw err;
-//   console.log("File name updated!");
-// });
-
-// fs.unlink("test.txt", (err) => {
-//   if (err) throw err;
-//   console.log("File test.txt deleted successfully!");
-// });
 const http = require("http");
 const fs = require("fs");
-const server = http.createServer((req, res) => {
-  const stream = fs.createReadStream("sample.txt");
-  stream.pipe(res);
-  // fs.readFile("sample.txt", (err, data) => {
-  //   res.end(data);
-  // });
+fs.readFile("home.html", (err, home) => {
+  console.log(home.toString());
 });
- 
-server.listen(3000);
+fs.readFile("home.html", (err, home) => {
+  if (err) {
+    throw err;
+  }
+  http
+    .createServer((request, response) => {
+      response.writeHeader(200, { "Content-Type": "text/html" });
+      response.write(home);
+      response.end();
+    })
+    .listen(3000);
+});
